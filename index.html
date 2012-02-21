@@ -3,8 +3,23 @@ layout: default
 title: Marcin Świerczyński's blog
 ---
 
-<ul class="posts">
-	{% for post in site.posts %}
-		<li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
-	{% endfor %}
-</ul>
+{% for post in paginator.posts %}
+	<div class="sixteen columns">
+		<h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+		<p>{{ post.content }}</p>
+	</div>
+	<hr/>
+{% endfor %}
+
+{% if paginator.next_page %}
+	<a href="/page{{ paginator.next_page }}">&raquo; Older</a>
+{% endif %}
+{% if paginator.previous_page %}
+	{% if paginator.previous_page == 1 %}
+		<a href="/">&raquo; Newer</a>
+	{% else %}
+		<a href="/page{{ paginator.previous_page }}">&raquo; Newer</a>
+	{% endif %}
+{% endif %}
+
+<!-- <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li> -->
