@@ -2,7 +2,11 @@
 layout: default
 ---
 
-<div class="sixteen columns">
-	<h2><a href="{{ page.url }}">{{ page.title }}</a></h2>
-	<p>{{ content }}</p>
+<div class="single post">
+	<div class="body">
+		<h2><a href="{{ page.url }}">{{ page.title }}</a></h2>
+		<p class="info">posted {{ page.date | date_to_string }} in <a href="#">{{ page.categories }}</a></p>
+		<p>{{ content }}</p>
+	</div>
+	<div class="x"></div>
 </div>

@@ -1,60 +1,27 @@
-<!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-
-	<!-- Basic Page Needs
-  ================================================== -->
-	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<link rel="stylesheet" href="/css/main.css" type="text/css" />
+	<link rel="stylesheet" href="/css/syntax.css" type="text/css" />
 	<title>{{ page.title }}</title>
-	<meta name="description" content="">
-	<meta name="author" content="Marcin Świerczyński">
-
-	<!-- Mobile Specific Metas
-  ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-	<!-- CSS
-  ================================================== -->
-	<link rel="stylesheet" href="/css/base.css">
-	<link rel="stylesheet" href="/css/skeleton.css">
-	<link rel="stylesheet" href="/css/layout.css">
-	<link rel="stylesheet" href="/css/syntax.css">
-
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-
 </head>
 <body>
-
-
-
-	<!-- Primary Page Layout
-	================================================== -->
-
-	<!-- Delete everything in this .container and get started on your own site! -->
-
-	<div class="container">
-		<div class="sixteen columns">
-			<h1 class="remove-bottom" style="margin-top: 40px"><a href="/">Marcin Świerczyński's blog</a></h1>
-			<h5>Version 1.1</h5>
-			<hr />
-		</div>
-
-	  {{ content }}
-
-	  	<hr />
-  		<div class="one-third column">
-			<h3>About me</h3>
-			<p>Skeleton is a small collection of well-organized CSS &amp; JS files that can help you rapidly develop sites that look beautiful at any size, be it a 17" laptop screen or an iPhone. It's based on a responsive grid, but also provides very basic CSS for typography, buttons, tabs, forms and media queries. Go ahead, resize this super basic page to see the grid in action.</p>
-		</div>
-
-	</div><!-- container -->
-
-<!-- End Document
-================================================== -->
+	<div id="content">
+		<h1>Marcin Świerczyński's blog</h1>
+		
+		<ul id="menu">
+			<li><a href="/">home</a></li>
+			<li><a href="#">archive</a></li>
+			<li><a href="#">contact</a></li>
+		</ul>
+		<div class="x"></div>
+	
+		{{ content }}
+		
+		<div id="footer">
+			<p>Copyright &copy; Marcin Świerczyński &middot; Design: <em>minimalistica</em> by Luka Cvrk, <a href="http://www.solucija.com/" title="Free CSS Templates">Solucija</a></p>
+		</div>	
+	</div>
 </body>
 </html>
