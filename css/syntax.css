@@ -1,5 +1,5 @@
-.highlight  { background: #000000; color: #FFFFFF;}
-.highlight code { background: #000000; color: #FFFFFF;}
+.highlight  { background: #000000; color: #FFFFFF; padding: 15px 0; margin: 20px 0; }
+.highlight code { background: #000000; color: #FFFFFF; font: 1.2em "Andale Mono", monospace; }
 .highlight .c { color: #9933CC; font-style: italic } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
 .highlight .k { color: #FF6600; font-weight: bold } /* Keyword */
