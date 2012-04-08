@@ -36,10 +36,6 @@ Spring jest rozwiązaniem modułowym. Bez problemu możemy wykorzystać jedynie 
 
 
 
-![Architektura Spring Framework](/wp-content/uploads/2010/07/architektura_spring.png)
-
- 
-
 
 #### Core Container
 
@@ -118,18 +114,20 @@ Na początku uczyliśmy się, że obiektowe języki programowania pozwalają na 
 
     
      
-        public class JdbcBookDao implements BookDao {
-          private BasicDataSource dataSource;
-     
-          public JdbcBookDao() {
-            dataSource = new BasicDataSource();
-            dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            dataSource.setUrl("jdbc:mysql://localhost/javaexpress?autoReconnect=true");
-            dataSource.setUsername("username");
-            dataSource.setPassword("password");
-          }
-          // ...inne metody
-        }
+{% highlight java %}
+public class JdbcBookDao implements BookDao {
+  private BasicDataSource dataSource;
+
+  public JdbcBookDao() {
+    dataSource = new BasicDataSource();
+    dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+    dataSource.setUrl("jdbc:mysql://localhost/javaexpress?autoReconnect=true");
+    dataSource.setUsername("username");
+    dataSource.setPassword("password");
+  }
+  // ...inne metody
+}
+{% endhighlight %}
     
 
 
@@ -150,15 +148,16 @@ Sposobem na wyeliminowanie konkretnej zależności z klasy `JdbcBookDao`     jes
 
 
     
-     
-        public class JdbcBookDao implements BookDao {
-          private DataSource dataSource;
-     
-          public void setDataSource(DataSource dataSource) {
-            this.dataSource = dataSource;
-          }
-          // ...inne metody
-        }
+{% highlight java %}
+public class JdbcBookDao implements BookDao {
+  private DataSource dataSource;
+
+  public void setDataSource(DataSource dataSource) {
+    this.dataSource = dataSource;
+  }
+  // ...inne metody
+}
+{% endhighlight %}
     
 
 
@@ -169,30 +168,30 @@ Teraz obiekt DAO nie jest ściśle związany z żadną klasą, co jest na pewno 
 
 
     
-     
-        public class BookService {
-          private JdbcBookDao bookDao;
-     
-          public BookService() {
-            try {
-              Properties props = new Properties();
-              props.load(new FileInputStream("dataSource.properties"));
-     
-              BasicDataSource dataSource = new BasicDataSource();
-              dataSource.setDriverClassName(props.getProperty("driverClassName"));
-              dataSource.setUrl(props.getProperty("url"));
-              dataSource.setUsername(props.getProperty("username"));
-              dataSource.setPassword(props.getProperty("password"));
-     
-              bookDao = new JdbcBookDao();
-              bookDao.setDataSource(dataSource);
-     
-            } catch (IOException e) {
-              e.printStackTrace();
-            }
-          }
-        }
-    
+{% highlight java %}
+public class BookService {
+  private JdbcBookDao bookDao;
+
+  public BookService() {
+    try {
+      Properties props = new Properties();
+      props.load(new FileInputStream("dataSource.properties"));
+
+      BasicDataSource dataSource = new BasicDataSource();
+      dataSource.setDriverClassName(props.getProperty("driverClassName"));
+      dataSource.setUrl(props.getProperty("url"));
+      dataSource.setUsername(props.getProperty("username"));
+      dataSource.setPassword(props.getProperty("password"));
+
+      bookDao = new JdbcBookDao();
+      bookDao.setDataSource(dataSource);
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+}
+{% endhighlight %}
 
 
 
@@ -217,14 +216,15 @@ Otoż klient nie musi bezpośrednio inicjalizować obiektu klasy `JdbcBookDao`. 
 
 
     
-     
-        public class BookService {
-          private BookDao bookDao;
-     
-          public void setBookDao(BookDao bookDao) {
-            this.bookDao = bookDao;
-          }
-        }
+{% highlight java %}
+public class BookService {
+  private BookDao bookDao;
+
+  public void setBookDao(BookDao bookDao) {
+    this.bookDao = bookDao;
+  }
+}
+{% endhighlight %}
     
 
 
@@ -235,29 +235,30 @@ A gdzie kończy się łańcuch zależności? W pliku konfiguracyjnym Springa:
 
 
     
-     
-        <?xml version="1.0" encoding="UTF-8"?>
-        <beans xmlns="http://www.springframework.org/schema/beans"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-     
-          <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-            destroy-method="close"> <!-- (1) -->
-            <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-            <property name="url"
-              value="jdbc:mysql://localhost/javaexpress?autoReconnect=true" />
-            <property name="username" value="username" />
-            <property name="password" value="password" />
-          </bean>
-     
-          <bean id="bookDao" class="dao.JdbcBookDao"> <!-- (2) -->
-            <property name="dataSource" ref="dataSource" />
-          </bean>
-     
-          <bean id="bookService" class="service.BookService"> <!-- (3) -->
-            <property name="bookDao" ref="bookDao" />
-          </bean>
-        </beans>
+{% highlight xml %}
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+    destroy-method="close"> <!-- (1) -->
+    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    <property name="url"
+      value="jdbc:mysql://localhost/javaexpress?autoReconnect=true" />
+    <property name="username" value="username" />
+    <property name="password" value="password" />
+  </bean>
+
+  <bean id="bookDao" class="dao.JdbcBookDao"> <!-- (2) -->
+    <property name="dataSource" ref="dataSource" />
+  </bean>
+
+  <bean id="bookService" class="service.BookService"> <!-- (3) -->
+    <property name="bookDao" ref="bookDao" />
+  </bean>
+</beans>
+{% endhighlight %}
     
 
 
@@ -298,46 +299,46 @@ Aplikacja zawiera tylko jedną klasę domenową, reprezentującą książkę:
 
 
     
-     
-        package model;
-     
-        //... pominięto importy
-        public class Book {
-          private String title;
-          private String author;
-          private Date lendDate;
-     
-          public Book(String title, String author, Date lendDate) {
-            this.title = title;
-            this.author = author;
-            this.lendDate = lendDate;
-          }
-     
-          public String getTitle() {
-            return title;
-          }
-     
-          public void setTitle(String title) {
-            this.title = title;
-          }
-     
-          public String getAuthor() {
-            return author;
-          }
-     
-          public void setAuthor(String author) {
-            this.author = author;
-          }
-     
-          public Date getLendDate() {
-            return lendDate;
-          }
-     
-          public void setLendDate(Date lendDate) {
-            this.lendDate = lendDate;
-          }
-        }
-    
+{% highlight java %}
+package model;
+
+//... pominięto importy
+public class Book {
+  private String title;
+  private String author;
+  private Date lendDate;
+
+  public Book(String title, String author, Date lendDate) {
+    this.title = title;
+    this.author = author;
+    this.lendDate = lendDate;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public String getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(String author) {
+    this.author = author;
+  }
+
+  public Date getLendDate() {
+    return lendDate;
+  }
+
+  public void setLendDate(Date lendDate) {
+    this.lendDate = lendDate;
+  }
+}
+{% endhighlight %}
 
 
 
@@ -347,11 +348,11 @@ Jak wspomniano, nasze książki przechowywać będziemy w pliku CSV, np. takim:
 
 
     
-     
-        Spring in Action,Craig Walls,20091028
-        Java Persistence with Hibernate,Christian Bauer,20091230
-        Spring in Practice,Willie Wheeler,20091127
-    
+{% highlight text %}
+  Spring in Action,Craig Walls,20091028
+  Java Persistence with Hibernate,Christian Bauer,20091230
+  Spring in Practice,Willie Wheeler,20091127
+{% endhighlight %}
 
 
 
@@ -371,14 +372,14 @@ Kolejnym etapem jest konstrukcja interfejsu **DAO**. Będzie on     zawierał ty
 
 
     
-     
-        package dao;
-     
-        //... pominięto importy
-        public interface BookDao {
-          List<Book> findAll() throws Exception;
-        }
-    
+{% highlight java %}
+package dao;
+
+//... pominięto importy
+public interface BookDao {
+  List<Book> findAll() throws Exception;
+}
+{% endhighlight %}
 
 
 
@@ -388,38 +389,39 @@ Teraz przyszła kolej na implementacje interfejsu w postaci klasy odczytującej 
 
 
     
-     
-        package dao;
-     
-        //... pominięto importy
-        public class CsvBookDao implements BookDao {
-          private String csvBooksFile;
-     
-          public void setCsvBooksFile(String csvBooksFile) {
-            this.csvBooksFile = csvBooksFile;
-          }
-     
-          @Override
-          public List<Book> findAll() throws Exception {
-            List<Book> booksList = new ArrayList<Book>();
-     
-            DateFormat df = new SimpleDateFormat("yyyyMMdd");
-     
-            BufferedReader br = new BufferedReader(new FileReader(csvBooksFile));
-            String line;
-            while ((line = br.readLine()) != null) {
-              String[] fields = line.split(",");
-              // pomijamy kwestie blednego formatu pliku
-              String title = fields[0];
-              String author = fields[1];
-              Date lendDate = df.parse(fields[2]);
-              Book book = new Book(title, author, lendDate);
-              booksList.add(book);
-            }
-            br.close();
-            return booksList;
-          }
-        }
+{% highlight java %}
+package dao;
+
+//... pominięto importy
+public class CsvBookDao implements BookDao {
+  private String csvBooksFile;
+
+  public void setCsvBooksFile(String csvBooksFile) {
+    this.csvBooksFile = csvBooksFile;
+  }
+
+  @Override
+  public List<Book> findAll() throws Exception {
+    List<Book> booksList = new ArrayList<Book>();
+
+    DateFormat df = new SimpleDateFormat("yyyyMMdd");
+
+    BufferedReader br = new BufferedReader(new FileReader(csvBooksFile));
+    String line;
+    while ((line = br.readLine()) != null) {
+      String[] fields = line.split(",");
+      // pomijamy kwestie blednego formatu pliku
+      String title = fields[0];
+      String author = fields[1];
+      Date lendDate = df.parse(fields[2]);
+      Book book = new Book(title, author, lendDate);
+      booksList.add(book);
+    }
+    br.close();
+    return booksList;
+  }
+}
+{% endhighlight %}
     
 
 
@@ -440,38 +442,39 @@ Ostatnią niemal klasą, ktorą musimy zbudować jest klasa usługi - `BookServi
 
 
     
-     
-        package service;
-     
-        //... pominięto importy
-        public class BookService {
-          private BookDao bookDao;
-     
-          public void setBookDao(BookDao bookDao) {
-            this.bookDao = bookDao;
-          }
-     
-          public List<Book> findBooksLent30DaysAgo() throws Exception {
-            List<Book> booksLent30DaysAgo = new ArrayList<Book>();
-            List<Book> allBooks = bookDao.findAll();
-     
-            Date thirtyDaysAgo = daysAgo(30);
-            for (Book book : allBooks) {
-              boolean bookWasLent30DaysAgo = book.getLendDate()
-                  .compareTo(thirtyDaysAgo) <= 0;
-              if (bookWasLent30DaysAgo)
-                booksLent30DaysAgo.add(book);
-            }
-     
-            return booksLent30DaysAgo;
-          }
-     
-          private Date daysAgo(int days) {
-            GregorianCalendar gc = new GregorianCalendar();
-            gc.add(Calendar.DATE, -days);
-            return gc.getTime();
-          }
-        }
+{% highlight java %}
+package service;
+
+//... pominięto importy
+public class BookService {
+  private BookDao bookDao;
+
+  public void setBookDao(BookDao bookDao) {
+    this.bookDao = bookDao;
+  }
+
+  public List<Book> findBooksLent30DaysAgo() throws Exception {
+    List<Book> booksLent30DaysAgo = new ArrayList<Book>();
+    List<Book> allBooks = bookDao.findAll();
+
+    Date thirtyDaysAgo = daysAgo(30);
+    for (Book book : allBooks) {
+      boolean bookWasLent30DaysAgo = book.getLendDate()
+          .compareTo(thirtyDaysAgo) <= 0;
+      if (bookWasLent30DaysAgo)
+        booksLent30DaysAgo.add(book);
+    }
+
+    return booksLent30DaysAgo;
+  }
+
+  private Date daysAgo(int days) {
+    GregorianCalendar gc = new GregorianCalendar();
+    gc.add(Calendar.DATE, -days);
+    return gc.getTime();
+  }
+}
+{% endhighlight %}
     
 
 
@@ -497,25 +500,25 @@ Konfiguracja aplikacji opartej o Springa najczęściej odbywa się w pliku XML. 
 
 
     
-     
-        <?xml version="1.0" encoding="UTF-8"?>
-        <beans xmlns="http://www.springframework.org/schema/beans" (
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-     
-          <bean id="bookDao" class="dao.CsvBookDao">
-            (2)
-            <property name="csvBooksFile" value="/home/marcin/books.txt" />
-            (3)
-          </bean>
-     
-          <bean id="bookService" class="service.BookService">
-            (4)
-            <property name="bookDao" ref="bookDao" />
-          </bean>
-     
-        </beans>
-    
+{% highlight xml %}
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" (
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="bookDao" class="dao.CsvBookDao">
+    (2)
+    <property name="csvBooksFile" value="/home/marcin/books.txt" />
+    (3)
+  </bean>
+
+  <bean id="bookService" class="service.BookService">
+    (4)
+    <property name="bookDao" ref="bookDao" />
+  </bean>
+
+</beans>
+{% endhighlight %}
 
 
 
@@ -538,10 +541,11 @@ Zamiast setterow, ktore ustawiają poszczegolne pola klasy, możemy wykorzystać
 
 
     
-     
-        public BookService(BookDao bookDao) {
-          this.bookDao = bookDao;
-        }
+{% highlight java %}
+public BookService(BookDao bookDao) {
+  this.bookDao = bookDao;
+}
+{% endhighlight %}
         
 
 
@@ -552,10 +556,11 @@ Musielibyśmy też zmodyfikować plik konfiguracyjny:
 
 
     
-     
-        <bean id="bookService" class="service.BookService">
-          <constructor-arg ref="bookDao" />
-        </bean>
+{% highlight xml %}
+<bean id="bookService" class="service.BookService">
+  <constructor-arg ref="bookDao" />
+</bean>
+{% endhighlight %}
         
 
 
@@ -589,25 +594,25 @@ Jesteśmy właściwie u celu. Pozostaje przetestowanie zaimplementowanego     ro
 
 
     
-     
-        package service;
-     
-        //...pominięto importy
-        public class BookServiceTest {
-          @Test
-          public void getBooksLent30DaysAgo() throws Exception {
-            ApplicationContext appCtx = new ClassPathXmlApplicationContext(
-                "META-INF/spring/applicationContext.xml");
-            BookService bookService = (BookService) appCtx.getBean("bookService");
-     
-            List<Book> booksLent30DaysAgo = bookService.findBooksLent30DaysAgo();
-     
-            assertEquals(2, booksLent30DaysAgo.size());
-            assertEquals("Spring in Action", booksLent30DaysAgo.get(0).getTitle());
-            assertEquals("Spring in Practice", booksLent30DaysAgo.get(1).getTitle());
-          }
-        }
-    
+{% highlight java %}
+package service;
+
+//...pominięto importy
+public class BookServiceTest {
+  @Test
+  public void getBooksLent30DaysAgo() throws Exception {
+    ApplicationContext appCtx = new ClassPathXmlApplicationContext(
+        "META-INF/spring/applicationContext.xml");
+    BookService bookService = (BookService) appCtx.getBean("bookService");
+
+    List<Book> booksLent30DaysAgo = bookService.findBooksLent30DaysAgo();
+
+    assertEquals(2, booksLent30DaysAgo.size());
+    assertEquals("Spring in Action", booksLent30DaysAgo.get(0).getTitle());
+    assertEquals("Spring in Practice", booksLent30DaysAgo.get(1).getTitle());
+  }
+}
+{% endhighlight %}
 
 
 

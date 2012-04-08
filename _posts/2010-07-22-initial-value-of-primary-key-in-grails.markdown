@@ -27,7 +27,7 @@ You have to use SequenceStyleGenerator with its parameter – initial_value. You
 
 
     
-    
+{% highlight scala %}
     class FirstClass {
       static mapping = {
         id(generator: 'org.hibernate.id.enhanced.SequenceStyleGenerator',
@@ -43,7 +43,7 @@ You have to use SequenceStyleGenerator with its parameter – initial_value. You
       }
       ...
     }
-    
+{% endhighlight %}
 
 
 
@@ -53,7 +53,7 @@ Unfortunately, in this case you’ll finish with the same sequence generator in 
 
 
     
-    
+{% highlight scala %}
     class FirstClass {
       static mapping = {
         id(generator: 'org.hibernate.id.enhanced.SequenceStyleGenerator',
@@ -69,7 +69,7 @@ Unfortunately, in this case you’ll finish with the same sequence generator in 
       }
       ...
     }
-    
+{% endhighlight %}
 
 
 

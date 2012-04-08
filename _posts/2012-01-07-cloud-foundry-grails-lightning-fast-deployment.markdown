@@ -43,8 +43,6 @@ From [cloudfoundry.com](http://www.cloudfoundry.com/about):
 
 
 
-
-
 To make a use of this article you'll need to have Grails framework installed.
 
 
@@ -56,8 +54,9 @@ To check if Grails is properly installed, use
 
 
 
-    
-    grails -version
+{% highlight text %}
+  grails -version
+{% endhighlight %}
 
 
 
@@ -68,12 +67,9 @@ You should see something like
 
 
 
-    
-    Grails version: 2.0.0
-    
-
-
-
+{% highlight text %}
+  Grails version: 2.0.0
+{% endhighlight %}
 
 
 If you haven't, just follow the [Grails Getting Started Guide](http://grails.org/doc/latest/guide/gettingStarted.html#requirements).
@@ -96,40 +92,41 @@ The whole process is extraordinary simple! Just do the following steps.
 
 
 
-  1. Create Grails app
+  1\. Create Grails app
 
 
 
 
+{% highlight text %}
+  grails create-app cloud_foundry_example
+{% endhighlight %}
+
+
+
+  2\. Change your working directory to a new application directory
+
+
+
+
+{% highlight text %}
+  cd cloud_foundry_example
+{% endhighlight %}
+
+
+
+  3\. Install Cloud Foundry plug-in
+
+
+
+
+{% highlight text %}
+  grails install-plugin cloud-foundry
+{% endhighlight %}
     
-    grails create-app cloud_foundry_example
-    
 
 
 
-  2. Change your working directory to a new application directory
-
-
-
-
-    
-    cd cloud_foundry_example
-    
-
-
-
-  3. Install Cloud Foundry plug-in
-
-
-
-
-    
-    grails install-plugin cloud-foundry
-    
-
-
-
-  4. Configure your Cloud Foundry credentials
+  4\. Configure your Cloud Foundry credentials
 
 
 
@@ -146,21 +143,21 @@ So, configure your credentials using
 
 
 
-    
-    grails.plugin.cloudfoundry.username = "<your_username>"
-    grails.plugin.cloudfoundry.password = "<pass>"
-    
+{% highlight text %}
+  grails.plugin.cloudfoundry.username = "<your_username>"
+  grails.plugin.cloudfoundry.password = "<pass>"
+{% endhighlight %}
 
 
 
-  5. Test your config
+  5\. Test your config
 
 
 
 
-    
-    grails cf-info
-    
+{% highlight text %}
+  grails cf-info
+{% endhighlight %}
 
 
 
@@ -171,27 +168,27 @@ The output should look like
 
 
 
-    
-    VMware's Cloud Application Platform
-    For support visit http://support.cloudfoundry.com
-    Target:   http://api.cloudfoundry.com (v0.999)
-    
-    User:     <your_username>
-    Usage:    Memory   (0B of 2.0G total)
-              Services (0 of 16 total)
-              Apps     (0 of 20 total)
-    
+{% highlight text %}
+  VMware's Cloud Application Platform
+  For support visit http://support.cloudfoundry.com
+  Target:   http://api.cloudfoundry.com (v0.999)
+  
+  User:     <your_username>
+  Usage:    Memory   (0B of 2.0G total)
+            Services (0 of 16 total)
+            Apps     (0 of 20 total)
+{% endhighlight %}
 
 
 
-  6. Deploy your app!
+  6\. Deploy your app!
 
 
 
 
-    
-    grails prod cf-push
-    
+{% highlight text %}
+  grails prod cf-push
+{% endhighlight %}
 
 
 
@@ -208,9 +205,9 @@ If you want to re-deploy after some changes, just do
 
 
 
-    
-    grails prod cf-update
-    
+{% highlight text %}
+  grails prod cf-update
+{% endhighlight %}
 
 
 

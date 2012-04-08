@@ -22,13 +22,13 @@ Virtualenv is a tool to create isolated Python environments. I'm sure you can im
 
 Pip is simply the Python packages installer. It can be called easy_install successor. Here, you can read [pip and easy_install compare](http://pip.openplans.org/#pip-compared-to-easy-install). From our point of view, pip has one extremely useful feature. It can save all requirements information to the text file and use it later to download necessary libraries. The example file is listed below.
 
-    
-    Django==1.2.1
-    Fabric==0.9.1
-    PIL==1.1.7
-    South==0.7.2
-    ...
-
+{% highlight text %}
+  Django==1.2.1
+  Fabric==0.9.1
+  PIL==1.1.7
+  South==0.7.2
+  ...
+{% endhighlight %}
 
 OK, but how can we use it together? Here comes how. Let's assume, we've virtualenv installed. Then, just do the following steps.
 

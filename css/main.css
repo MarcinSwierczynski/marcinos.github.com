@@ -18,7 +18,7 @@ ol ul, ul ol { margin-top: 0; margin-bottom: 0; }
 
 blockquote { border-left: #D40000 solid 2px; margin: 0 20px 0 40px; padding-left: 15px; }
 
-code { display: block; padding: 10px; margin: 15px 0; }
+code { padding: 2px; }
 	
 #content { width: 960px; margin: 40px auto; }
 
@@ -41,4 +41,5 @@ code { display: block; padding: 10px; margin: 15px 0; }
 .col { width: 45%; margin: 0 40px 30px 0; float: left; font-size: .9em; height: 300px; }
 	.col.last { margin-right: 0; }
 		
+#pagination { margin: 20px 0px; }
 #footer { clear: both; border-top: 1px solid #ddd; padding: 20px 0; font-size: .9em; color: #999; text-align: center; }

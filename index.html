@@ -14,6 +14,7 @@ title: Marcin Świerczyński's blog
 
 <div style="clear: both"></div>
 
+<div id="pagination">
 {% if paginator.next_page %}
 	<a href="/page{{ paginator.next_page }}">&raquo; Older</a>
 {% endif %}
@@ -24,5 +25,6 @@ title: Marcin Świerczyński's blog
 		<a href="/page{{ paginator.previous_page }}">&raquo; Newer</a>
 	{% endif %}
 {% endif %}
+</div>
 
 <!-- <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li> -->

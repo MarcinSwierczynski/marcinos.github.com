@@ -27,7 +27,7 @@ Because it is a background operation not visible to user, I've decided to build 
 
 
     
-    
+{% highlight java %}
     //imports
     
     public class SentSmsLogger extends Service {
@@ -67,7 +67,7 @@ Because it is a background operation not visible to user, I've decided to build 
     	}
     
     }
-    
+{% endhighlight %}
 
 
 

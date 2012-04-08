@@ -28,17 +28,17 @@ Let’s define an Invoice class with a few fields: number, draw date and payment
 
 
     
-    
+{% highlight scala %}
     class Invoice { 
-    	String number; 
-    	Date drawDate; 
-    	Date paymentDate; 
+    	String number
+    	Date drawDate
+    	Date paymentDate
     	static constraints = { 
-    		number(blank: false); 
-    		drawDate(blank: false); 
+    		number(blank: false)
+    		drawDate(blank: false)
     	}
-    } 
-    
+    }
+{% endhighlight %}
 
 
 
@@ -50,9 +50,9 @@ It looks good, doesn’t it? You can generate controller and views for that clas
 
 
     
-    
-    def invoice = new Invoice(number: “1/2010”, drawDate: new Date()).save(); 
-    
+{% highlight scala %}
+    def invoice = new Invoice(number: “1/2010”, drawDate: new Date()).save()
+{% endhighlight %}
 
 
 
@@ -76,18 +76,18 @@ What can you do? You can set an explicit constraint for such a field: “nullabl
 
 
     
-    
+{% highlight scala %}
     class Invoice { 
-    	String number; 
-    	Date drawDate; 
-    	Date paymentDate; 
+    	String number
+    	Date drawDate
+    	Date paymentDate
     	static constraints = { 
-    		number(blank: false); 
-    		drawDate(blank: false); 
-    		paymentDate(nullable: true);
+    		number(blank: false)
+    		drawDate(blank: false)
+    		paymentDate(nullable: true)
     	} 
     }
-    
+{% endhighlight %}
 
 
 
