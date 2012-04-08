@@ -3,3 +3,4 @@ lsi: false
 pygments: true
 paginate: 10
 permalink: /:year/:month/:title
+markdown: rdiscount

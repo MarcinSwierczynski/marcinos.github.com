@@ -14,7 +14,7 @@ tags:
 - video
 ---
 
-![Mastering Git by Matthew McCullough and Tim Berglund Video cover](http://covers.oreilly.com/images/0636920017479/cat.gif)
+![Mastering Git by Matthew McCullough and Tim Berglund Video cover](/img/posts/mastering-git.gif)
 
 On the beginning, I just want to say one thing - McCullough and Berglund on Mastering Git is a perfect way to learn Git! The only requirement is an ability to learn in a classroom-type environment. An impression of class or conference is maximized by the fact that “students” are asking questions. If you're able to learn from a lecture, keep reading!
 

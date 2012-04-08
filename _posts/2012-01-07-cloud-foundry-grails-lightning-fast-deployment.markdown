@@ -32,8 +32,7 @@ From [cloudfoundry.com](http://www.cloudfoundry.com/about):
 
 
 
-> 
-Cloud Foundry is an open platform as a service, providing a choice of clouds, developer frameworks and application services. Initiated by VMware, with broad industry support, Cloud Foundry makes it faster and easier to build, test, deploy and scale applications. It is an open source project and is available through a variety of private cloud distributions and public cloud instances, including CloudFoundry.com.
+> Cloud Foundry is an open platform as a service, providing a choice of clouds, developer frameworks and application services. Initiated by VMware, with broad industry support, Cloud Foundry makes it faster and easier to build, test, deploy and scale applications. It is an open source project and is available through a variety of private cloud distributions and public cloud instances, including CloudFoundry.com.
 
 
 
@@ -58,8 +57,7 @@ To check if Grails is properly installed, use
 
 
     
-    <code>grails -version
-    </code>
+    grails -version
 
 
 
@@ -71,8 +69,8 @@ You should see something like
 
 
     
-    <code>Grails version: 2.0.0
-    </code>
+    Grails version: 2.0.0
+    
 
 
 
@@ -104,8 +102,8 @@ The whole process is extraordinary simple! Just do the following steps.
 
 
     
-    <code>grails create-app cloud_foundry_example
-    </code>
+    grails create-app cloud_foundry_example
+    
 
 
 
@@ -115,8 +113,8 @@ The whole process is extraordinary simple! Just do the following steps.
 
 
     
-    <code>cd cloud_foundry_example
-    </code>
+    cd cloud_foundry_example
+    
 
 
 
@@ -126,8 +124,8 @@ The whole process is extraordinary simple! Just do the following steps.
 
 
     
-    <code>grails install-plugin cloud-foundry
-    </code>
+    grails install-plugin cloud-foundry
+    
 
 
 
@@ -149,9 +147,9 @@ So, configure your credentials using
 
 
     
-    <code>grails.plugin.cloudfoundry.username = "<your_username>"
+    grails.plugin.cloudfoundry.username = "<your_username>"
     grails.plugin.cloudfoundry.password = "<pass>"
-    </code>
+    
 
 
 
@@ -161,8 +159,8 @@ So, configure your credentials using
 
 
     
-    <code>grails cf-info
-    </code>
+    grails cf-info
+    
 
 
 
@@ -174,7 +172,7 @@ The output should look like
 
 
     
-    <code>VMware's Cloud Application Platform
+    VMware's Cloud Application Platform
     For support visit http://support.cloudfoundry.com
     Target:   http://api.cloudfoundry.com (v0.999)
     
@@ -182,7 +180,7 @@ The output should look like
     Usage:    Memory   (0B of 2.0G total)
               Services (0 of 16 total)
               Apps     (0 of 20 total)
-    </code>
+    
 
 
 
@@ -192,8 +190,8 @@ The output should look like
 
 
     
-    <code>grails prod cf-push
-    </code>
+    grails prod cf-push
+    
 
 
 
@@ -211,8 +209,8 @@ If you want to re-deploy after some changes, just do
 
 
     
-    <code>grails prod cf-update
-    </code>
+    grails prod cf-update
+    
 
 
 

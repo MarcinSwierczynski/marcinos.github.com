@@ -9,7 +9,7 @@ categories:
 - Books and Videos
 ---
 
-[![](http://blog.swierczynski.net/wp-content/uploads/2012/02/cat.gif)](http://blog.swierczynski.net/wp-content/uploads/2012/02/cat.gif)It was almost a year ago when I had a pleasure to [review Mastering Git by Matthew McCullough and Tim Berglund](http://blog.swierczynski.net/2011/03/mastering-git-by-matthew-mccullough-and-tim-berglund/). Today, thanks to O’Reilly, I can take a look at its successor - Mastering Advanced Git.
+![Mastering Advanced Git](/img/posts/mastering-advanced-git.gif) It was almost a year ago when I had a pleasure to [review Mastering Git by Matthew McCullough and Tim Berglund](http://blog.swierczynski.net/2011/03/mastering-git-by-matthew-mccullough-and-tim-berglund/). Today, thanks to O’Reilly, I can take a look at its successor - Mastering Advanced Git.
 
 Just as a reminder: I really liked the first part. But I simply loved the new one! It covers Git details in very thorough way. And, what is perhaps even more important, it leads you through them in extremely straightforward manner.
 
