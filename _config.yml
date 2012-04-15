@@ -4,3 +4,6 @@ pygments: true
 paginate: 10
 permalink: /:year/:month/:title
 markdown: rdiscount
+name: Marcin Świerczyński's Blog
+description: A personal blog about software engineering
+url: http://blog.swierczynski.net
