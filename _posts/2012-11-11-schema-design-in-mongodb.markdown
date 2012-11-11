@@ -30,9 +30,9 @@ The last option is to **tolarate** a little bit of inconsistency. Sometimes, act
 
 In MongoDB, you can achieve relations between documents on one of four ways:
 
-* put a foreign key in one of these documents
-* put foreign keys in both documents
-* embed one document into another
+ * put a foreign key in one of these documents
+ * put foreign keys in both documents
+ * embed one document into another
 
 Which one to choose depends on a few factors, including relation type.
 
