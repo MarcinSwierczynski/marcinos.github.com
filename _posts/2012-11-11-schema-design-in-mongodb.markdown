@@ -16,9 +16,9 @@ I decided to write it down here for further reference but I hope it will also be
 
 ## MongoDB limitations
 
-MongoDB **do not provide foreign key constraints** known from relational databases. How can we deal with it? Well, one option is **embedding**. If you don't separate documents into a few collections but embed one into other, you basically avoid using foreign key at all! It of course isn't a silver bullet - it depends on your date usage pattern or other MongoDB limitations (like max. 16MB per document), but it's definitely worth considering.
+MongoDB **do not provide foreign key constraints** known from relational databases. How can we deal with it? Well, one option is **embedding**. If you don't separate documents into a few collections but embed one into other, you basically avoid using foreign key at all! It of course isn't a silver bullet - it depends on your data usage pattern or other MongoDB limitations (like max. 16MB per document), but it's definitely worth considering.
 
-Moreover, Mongo **don't provide transactions**. It looks quite serious but it actually can be worked around quite easily, because of a few solutions.
+Moreover, Mongo **don't provide transactions**. It looks quite serious but it actually can be worked around easily, because of a few solutions.
 
 First of all, MongoDB supports **atomic operations**. It means you have a guarantee that a single document will be persisted atomically, ie. saved all or nothing. How does it help the situation? Well, if you embed a document into another, you don't need to worry about transactions at all. You save one document (atomically!), instead of a few, which would need transactional approach.
 
@@ -29,6 +29,7 @@ The last option is to **tolarate** a little bit of inconsistency. Sometimes, act
 ## Relations
 
 In MongoDB, you can achieve relations between documents on one of four ways:
+
 * put a foreign key in one of these documents
 * put foreign keys in both documents
 * embed one document into another
@@ -39,7 +40,7 @@ Which one to choose depends on a few factors, including relation type.
 
 In one to one relation you can ask yourself three questions.
 
-**How often will I use the data?** If the data won't be used often in a single piece, you probably should separate it into two documents.
+**How often will I use the data?** If the data won't be used often as a single piece, you probably should separate it into two documents.
 
 **How big is the data?** If the data size exceeds 16 MB then it's a no brainer - you need to separate it. Also, when the data is big, however under 16 MB, but you constantly update only a part of it, it probably makes sense to separate it as well to avoid update overhead. Of course, it's also important here to think about how the data will grow up in the future.
 
@@ -57,4 +58,4 @@ As a rule of thumb, it makes the most sense to create two collections and link t
 
 To sum up, we can say that a rule of thumb is to embed. Beside the advantages mentioned above, there is one more - performance. Embedded documents lays near each other on the HDD, probably in the same sector, so reading them is much faster because of hard drives nature.
 
-However, it all depends on the data access patterns of your application. You need to consider potential duplication anomalies as well as performance. I hope the above recommendations will help.
+However, it all depends on the data access patterns of your application. You need to consider potential duplication anomalies as well as performance. I hope the above recommendations will help with the decission.
