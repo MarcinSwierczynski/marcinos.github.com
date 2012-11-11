@@ -7,6 +7,12 @@ layout: default
 		<h2><a href="{{ page.url }}">{{ page.title }}</a></h2>
 		<p class="info">posted {{ page.date | date_to_string }} in <a href="#">{{ page.categories }}</a></p>
 		<p>{{ content }}</p>
+
+		<div id="comments">
+			<h3>Leave a comment</h3>
+			<div class="fb-comments" data-href="{{ site.url }}{{ page.url }}" data-num-posts="2" data-width="900"></div>
+		</div>
+
 	</div>
 	<div class="x"></div>
 </div>
