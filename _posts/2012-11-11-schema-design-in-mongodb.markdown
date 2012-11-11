@@ -1,3 +1,15 @@
+---
+date: '2012-11-11 15:21:23'
+layout: post
+slug: schema-design-in-mongodb
+status: publish
+title: Schema Design in MongoDB
+categories:
+- Courses
+- Databases
+- MongoDB
+---
+
 Recently, I started MongoDB for Developers course from [10gen Education](https://education.10gen.com). The third week brought some very interesting information on schema design.
 
 I decided to write it down here for further reference but I hope it will also be useful for others.
