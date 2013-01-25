@@ -50,9 +50,9 @@ Now we can store both hashed password and salt in a database. How about comparin
 Obviously, to compare a user-provided password with its hashed version, we need to hash it again using the same salt and compare the result with what is stored in a database.
 
 {% highlight java %}
-	ByteSource salt = ???
-	String hashedPassword = new Sha512Hash(clearTextPassword, salt, hashIterations).toHex();
-	return hashedPassword.equals(dbStoredHashedPassword);
+ByteSource salt = ???
+String hashedPassword = new Sha512Hash(clearTextPassword, salt, hashIterations).toHex();
+return hashedPassword.equals(dbStoredHashedPassword);
 {% endhighlight %}
 
 But how to get `ByteSource` object from a string we saved? It's easy as well.
@@ -65,25 +65,25 @@ But how to get `ByteSource` object from a string we saved? It's easy as well.
 The complete example could look like:
 
 {% highlight java %}
-	public boolean passwordsMatch(String dbStoredHashedPassword, String salt, String clearTextPassword) {
-		ByteSource salt = ByteSource.Util.bytes(Hex.decode(salt));
-		String hashedPassword = hashAndSaltPassword(clearTextPassword, salt);
-		return hashedPassword.equals(dbStoredHashedPassword);
-	}
+public boolean passwordsMatch(String dbStoredHashedPassword, String salt, String clearTextPassword) {
+	ByteSource salt = ByteSource.Util.bytes(Hex.decode(salt));
+	String hashedPassword = hashAndSaltPassword(clearTextPassword, salt);
+	return hashedPassword.equals(dbStoredHashedPassword);
+}
 
-	public void hashPassword(String clearTextPassword) {
-		ByteSource salt = getSalt();
-		String hash = hashAndSaltPassword(clearTextPassword, salt);
-		// persist salt and hash or return them to delegate this task to other component
-	}
+public void hashPassword(String clearTextPassword) {
+	ByteSource salt = getSalt();
+	String hash = hashAndSaltPassword(clearTextPassword, salt);
+	// persist salt and hash or return them to delegate this task to other component
+}
 
-	private String hashAndSaltPassword(String clearTextPassword, String salt) {
-		return new Sha512Hash(clearTextPassword, salt, hashIterations).toHex();
-	}
+private String hashAndSaltPassword(String clearTextPassword, String salt) {
+	return new Sha512Hash(clearTextPassword, salt, hashIterations).toHex();
+}
 
-	private ByteSource getSalt() {
-		return new SecureRandomNumberGenerator().nextBytes();
-	}
+private ByteSource getSalt() {
+	return new SecureRandomNumberGenerator().nextBytes();
+}
 {% endhighlight %}
 
 ## What is the hashIterations?
