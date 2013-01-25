@@ -3,7 +3,7 @@ date: '2013-01-25 22:30:12'
 layout: post
 slug: strong-passwords-hashing-wtih-apache-shiro
 status: publish
-title: Strong password hashing with Apache Shiro
+title: Strong passwords hashing with Apache Shiro
 categories:
 - Programming
 - Java
@@ -26,34 +26,45 @@ My implementation uses a separate salt for each user. Although, there are [diffe
 
 First of all we should generate a salt:
 
-	protected ByteSource getSalt() {
-		return new SecureRandomNumberGenerator().nextBytes();
-	}
+{% highlight java %}
+protected ByteSource getSalt() {
+	return new SecureRandomNumberGenerator().nextBytes();
+}
+{% endhighlight %}
 
 Given salt, we can hash plain text password:
 
+{% highlight java %}
 	new Sha512Hash(password, salt, hashIterations).toHex();
+{% endhighlight %}
 
 Of course, we didn't want to store `ByteSource` directly in a database, so I converted it to a hex-encoded string:
 
+{% highlight java %}
 	salt.toHex();
+{% endhighlight %}
 
 Now we can store both hashed password and salt in a database. How about comparing a result with a plain text password?
 
 ## Comparing clear text and hashed passwords
 Obviously, to compare a user-provided password with its hashed version, we need to hash it again using the same salt and compare the result with what is stored in a database.
 
+{% highlight java %}
 	ByteSource salt = ???
 	String hashedPassword = new Sha512Hash(clearTextPassword, salt, hashIterations).toHex();
 	return hashedPassword.equals(dbStoredHashedPassword);
+{% endhighlight %}
 
 But how to get `ByteSource` object from a string we saved? It's easy as well.
 
+{% highlight java %}
 	ByteSource salt = ByteSource.Util.bytes(Hex.decode(salt));
+{% endhighlight %}
 
 ## Putting it all together
 The complete example could look like:
 
+{% highlight java %}
 	public boolean passwordsMatch(String dbStoredHashedPassword, String salt, String clearTextPassword) {
 		ByteSource salt = ByteSource.Util.bytes(Hex.decode(salt));
 		String hashedPassword = hashAndSaltPassword(clearTextPassword, salt);
@@ -73,6 +84,7 @@ The complete example could look like:
 	private ByteSource getSalt() {
 		return new SecureRandomNumberGenerator().nextBytes();
 	}
+{% endhighlight %}
 
 ## What is the hashIterations?
 The hash iterations value indicates the number of times the clear password is hashed. The value larger, the hash algorithm applied more times, making the process slower and, as a result, making the password harder to break by a brute-force attack.
