@@ -1,5 +1,5 @@
 ---
-date: '2010-09-01 23:40:06'
+date: 2010-09-01 23:40:06 +0100
 layout: post
 slug: python-3-kompletne-wprowadzenie-do-programowania-opinia
 status: publish

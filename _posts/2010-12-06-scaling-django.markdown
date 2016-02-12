@@ -1,5 +1,5 @@
 ---
-date: '2010-12-06 18:58:06'
+date: 2010-12-06 18:58:06 +0100
 layout: post
 slug: scaling-django
 status: publish

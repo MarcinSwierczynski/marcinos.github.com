@@ -1,5 +1,5 @@
 ---
-date: '2010-07-25 16:15:19'
+date: 2010-07-25 16:15:19 +0100
 layout: post
 slug: how-to-add-a-text-message-to-messages-conversation-in-android-sdk
 status: publish
@@ -26,22 +26,22 @@ Because it is a background operation not visible to user, I've decided to build 
 
 
 
-    
-{% highlight java %}
+
+```java
     //imports
-    
+
     public class SentSmsLogger extends Service {
-    
+
     	private static final String TELEPHON_NUMBER_FIELD_NAME = "address";
     	private static final String MESSAGE_BODY_FIELD_NAME = "body";
     	private static final Uri SENT_MSGS_CONTET_PROVIDER = Uri.parse("content://sms/sent");
-    
+
     	@Override
     	public void onStart(Intent intent, int startId) {
     		addMessageToSentIfPossible(intent);
     		stopSelf();
     	}
-    
+
     	private void addMessageToSentIfPossible(Intent intent) {
     		if (intent != null) {
     			String telNumber = intent.getStringExtra("telNumber");
@@ -51,23 +51,23 @@ Because it is a background operation not visible to user, I've decided to build 
     			}
     		}
     	}
-    	
+
     	private void addMessageToSent(String telNumber, String messageBody) {
     		ContentValues sentSms = new ContentValues();
     		sentSms.put(TELEPHON_NUMBER_FIELD_NAME, telNumber);
     		sentSms.put(MESSAGE_BODY_FIELD_NAME, messageBody);
-    		
+
     		ContentResolver contentResolver = getContentResolver();
     		contentResolver.insert(SENT_MSGS_CONTET_PROVIDER, sentSms);
     	}
-    
+
     	@Override
     	public IBinder onBind(Intent intent) {
     		return null;
     	}
-    
+
     }
-{% endhighlight %}
+```
 
 
 

@@ -1,5 +1,5 @@
 ---
-date: '2010-12-06 20:07:24'
+date: 2010-12-06 20:07:24 +0100
 layout: post
 slug: how-to-create-uipickerview-with-toolbar-above-it-in-ios
 status: publish
@@ -29,22 +29,22 @@ So now it should be quite easy:
 
 
 
-    
-{% highlight objectivec %}
+
+```objectivec
     UIResponder *firstResponder; // use your future first responder
-    
+
     UIPickerView *pickerView = [[UIPickerView alloc] init];
     pickerView.showsSelectionIndicator = YES;
-    
+
     firstResponder.inputView = pickerView;
     [pickerView release];
-    
+
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     toolbar.barStyle = UIBarStyleBlackTranslucent;
-    
+
     firstResponder.inputAccessoryView = toolbar;
     [toolbar release];
-{% endhighlight %}
+```
 
 
 
@@ -53,31 +53,31 @@ Unfortunately, it isn't. Both inputView and inputAccessoryView are readonly prop
 
 
 
-    
-{% highlight objectivec %}
+
+```objectivec
     @property (readwrite, retain) UIView *inputView;
     @property (readwrite, retain) UIView *inputAccessoryView;
-{% endhighlight %}    
+```    
 
 
 
 
 What is the best, we aren't limited to use this feature on UITextFields only. Because of fact that _UIView_ inherits from _UIResponder_, we can attach this behaviour to all views, for example to a button or a table cell. To do that we have to override `canBecomeFirstResponder` method in our subclass. For example, the UIButton subclass implementation can look like this:
 
-{% highlight objectivec %}
+```objectivec
     implementation CustomButton { } //it is UIButton subclass
-    
+
     @synthesize inputView, inputAccessoryView;
-    
+
     - (BOOL) canBecomeFirstResponder {
         return YES;
     }
-    
+
     - (void)dealloc {
     	[inputView release];
     	[inputAccessoryView release];
     	[super dealloc];
     }
-    
+
     @end
-{% endhighlight %}
+```

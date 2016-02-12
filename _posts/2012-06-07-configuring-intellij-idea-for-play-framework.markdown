@@ -1,5 +1,5 @@
 ---
-date: '2012-06-07 12:45:01'
+date: 2012-06-07 12:45:01 +0100
 layout: post
 slug: configuring-intellij-idea-for-play-framework
 status: publish

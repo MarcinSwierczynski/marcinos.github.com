@@ -1,5 +1,5 @@
 ---
-date: '2010-11-08 22:22:50'
+date: 2010-11-08 22:22:50 +0100
 layout: post
 slug: django-and-rails-and-grails-comparison
 status: publish

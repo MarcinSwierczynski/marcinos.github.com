@@ -1,5 +1,5 @@
 ---
-date: '2010-10-02 13:10:16'
+date: 2010-10-02 13:10:16 +0100
 layout: post
 slug: virtualenv-pip
 status: publish
@@ -22,34 +22,34 @@ Virtualenv is a tool to create isolated Python environments. I'm sure you can im
 
 Pip is simply the Python packages installer. It can be called easy_install successor. Here, you can read [pip and easy_install compare](http://pip.openplans.org/#pip-compared-to-easy-install). From our point of view, pip has one extremely useful feature. It can save all requirements information to the text file and use it later to download necessary libraries. The example file is listed below.
 
-{% highlight text %}
+```
   Django==1.2.1
   Fabric==0.9.1
   PIL==1.1.7
   South==0.7.2
   ...
-{% endhighlight %}
+```
 
 OK, but how can we use it together? Here comes how. Let's assume, we've virtualenv installed. Then, just do the following steps.
 
 
 
-	
+
   1. `virtualenv --no-site-packages environment_name` - this command creates new environment with given name. The `no-site-packages` option ensures that this environment won't inherit any libraries previously installed in your system.
 
-	
+
   2. `cd environment_name` - virtualenv has created a new directory, so we've to go to it
 
-	
+
   3. Now, we've to install all requirements into a new environment. As a bonus, virtualenv contains pip package and puts it into each environment. So, all you've to do is `bin/pip install package_name`. We need to repeat this command for each library our project depends on.
 
-	
+
   4. It'd be useful to export all the dependencies into to the file to use it in the future. To do that just run `bin/pip freeze > requirements_file.txt`
 
-	
+
   5. You can use this file to build your environment later, perhaps on another machine. It's simple: `bin/pip install -r requirements_file.txt`
 
-	
+
   6. It's almost done. The last thing is to activate our new virtual environment. We need this to run all subsequent commands within its context. Use `source bin/activate` and notice that your command prompt got a prefix - an environment name. To deactivate the environment, simply write `deactivate`.
 
 

@@ -1,5 +1,5 @@
 ---
-date: '2012-04-15 12:04:23'
+date: 2012-04-15 12:04:23 +0100
 layout: post
 slug: code-simplicity-by-max-kanat-alexander
 status: publish

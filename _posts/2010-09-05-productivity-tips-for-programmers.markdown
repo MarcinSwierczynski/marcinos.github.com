@@ -1,5 +1,5 @@
 ---
-date: '2010-09-05 19:26:26'
+date: 2010-09-05 19:26:26 +0100
 layout: post
 slug: productivity-tips-for-programmers
 status: publish

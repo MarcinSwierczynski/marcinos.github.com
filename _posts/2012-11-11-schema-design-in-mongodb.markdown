@@ -1,5 +1,5 @@
 ---
-date: '2012-11-11 15:21:23'
+date: 2012-11-11 15:21:23 +0100
 layout: post
 slug: schema-design-in-mongodb
 status: publish

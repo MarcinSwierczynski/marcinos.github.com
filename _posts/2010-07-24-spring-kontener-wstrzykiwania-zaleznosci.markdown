@@ -1,5 +1,5 @@
 ---
-date: '2010-07-24 14:37:08'
+date: 2010-07-24 14:37:08 +0100
 layout: post
 slug: spring-kontener-wstrzykiwania-zaleznosci
 status: publish
@@ -112,9 +112,9 @@ Na początku uczyliśmy się, że obiektowe języki programowania pozwalają na 
 
 
 
-    
-     
-{% highlight java %}
+
+
+```java
 public class JdbcBookDao implements BookDao {
   private BasicDataSource dataSource;
 
@@ -127,8 +127,8 @@ public class JdbcBookDao implements BookDao {
   }
   // ...inne metody
 }
-{% endhighlight %}
-    
+```
+
 
 
 
@@ -147,8 +147,8 @@ Sposobem na wyeliminowanie konkretnej zależności z klasy `JdbcBookDao`     jes
 
 
 
-    
-{% highlight java %}
+
+```java
 public class JdbcBookDao implements BookDao {
   private DataSource dataSource;
 
@@ -157,8 +157,8 @@ public class JdbcBookDao implements BookDao {
   }
   // ...inne metody
 }
-{% endhighlight %}
-    
+```
+
 
 
 
@@ -167,8 +167,8 @@ Teraz obiekt DAO nie jest ściśle związany z żadną klasą, co jest na pewno 
 
 
 
-    
-{% highlight java %}
+
+```java
 public class BookService {
   private JdbcBookDao bookDao;
 
@@ -191,7 +191,7 @@ public class BookService {
     }
   }
 }
-{% endhighlight %}
+```
 
 
 
@@ -215,8 +215,8 @@ Otoż klient nie musi bezpośrednio inicjalizować obiektu klasy `JdbcBookDao`. 
 
 
 
-    
-{% highlight java %}
+
+```java
 public class BookService {
   private BookDao bookDao;
 
@@ -224,8 +224,8 @@ public class BookService {
     this.bookDao = bookDao;
   }
 }
-{% endhighlight %}
-    
+```
+
 
 
 
@@ -234,8 +234,8 @@ A gdzie kończy się łańcuch zależności? W pliku konfiguracyjnym Springa:
 
 
 
-    
-{% highlight xml %}
+
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -258,8 +258,8 @@ A gdzie kończy się łańcuch zależności? W pliku konfiguracyjnym Springa:
     <property name="bookDao" ref="bookDao" />
   </bean>
 </beans>
-{% endhighlight %}
-    
+```
+
 
 
 
@@ -298,8 +298,8 @@ Aplikacja zawiera tylko jedną klasę domenową, reprezentującą książkę:
 
 
 
-    
-{% highlight java %}
+
+```java
 package model;
 
 //... pominięto importy
@@ -338,7 +338,7 @@ public class Book {
     this.lendDate = lendDate;
   }
 }
-{% endhighlight %}
+```
 
 
 
@@ -347,12 +347,12 @@ Jak wspomniano, nasze książki przechowywać będziemy w pliku CSV, np. takim:
 
 
 
-    
-{% highlight text %}
+
+```
   Spring in Action,Craig Walls,20091028
   Java Persistence with Hibernate,Christian Bauer,20091230
   Spring in Practice,Willie Wheeler,20091127
-{% endhighlight %}
+```
 
 
 
@@ -371,15 +371,15 @@ Kolejnym etapem jest konstrukcja interfejsu **DAO**. Będzie on     zawierał ty
 
 
 
-    
-{% highlight java %}
+
+```java
 package dao;
 
 //... pominięto importy
 public interface BookDao {
   List<Book> findAll() throws Exception;
 }
-{% endhighlight %}
+```
 
 
 
@@ -388,8 +388,8 @@ Teraz przyszła kolej na implementacje interfejsu w postaci klasy odczytującej 
 
 
 
-    
-{% highlight java %}
+
+```java
 package dao;
 
 //... pominięto importy
@@ -421,8 +421,8 @@ public class CsvBookDao implements BookDao {
     return booksList;
   }
 }
-{% endhighlight %}
-    
+```
+
 
 
 
@@ -441,8 +441,8 @@ Ostatnią niemal klasą, ktorą musimy zbudować jest klasa usługi - `BookServi
 
 
 
-    
-{% highlight java %}
+
+```java
 package service;
 
 //... pominięto importy
@@ -474,8 +474,8 @@ public class BookService {
     return gc.getTime();
   }
 }
-{% endhighlight %}
-    
+```
+
 
 
 
@@ -499,8 +499,8 @@ Konfiguracja aplikacji opartej o Springa najczęściej odbywa się w pliku XML. 
 
 
 
-    
-{% highlight xml %}
+
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" (
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -518,7 +518,7 @@ Konfiguracja aplikacji opartej o Springa najczęściej odbywa się w pliku XML. 
   </bean>
 
 </beans>
-{% endhighlight %}
+```
 
 
 
@@ -540,13 +540,13 @@ Zamiast setterow, ktore ustawiają poszczegolne pola klasy, możemy wykorzystać
 
 
 
-    
-{% highlight java %}
+
+```java
 public BookService(BookDao bookDao) {
   this.bookDao = bookDao;
 }
-{% endhighlight %}
-        
+```
+
 
 
 
@@ -555,13 +555,13 @@ Musielibyśmy też zmodyfikować plik konfiguracyjny:
 
 
 
-    
-{% highlight xml %}
+
+```xml
 <bean id="bookService" class="service.BookService">
   <constructor-arg ref="bookDao" />
 </bean>
-{% endhighlight %}
-        
+```
+
 
 
 
@@ -593,8 +593,8 @@ Jesteśmy właściwie u celu. Pozostaje przetestowanie zaimplementowanego     ro
 
 
 
-    
-{% highlight java %}
+
+```java
 package service;
 
 //...pominięto importy
@@ -612,7 +612,7 @@ public class BookServiceTest {
     assertEquals("Spring in Practice", booksLent30DaysAgo.get(1).getTitle());
   }
 }
-{% endhighlight %}
+```
 
 
 
@@ -638,16 +638,16 @@ Zbudowaliśmy prostą aplikację wykorzystującą **Spring Framework**.     Już
 
 
 
-    
+
   1. _Spring in Practice_, Willie Wheeler, John Wheeler, Manning Publications         - książka będąca inspiracją i podstawą do napisania tego artykułu
 
-    
+
   2. _Spring in Action_, Craig Walls, Ryan Breidenbach, Manning Publications
 
-    
+
   3. [http://static.springsource.org/spring/docs/3.0.x/spring-framework-reference/html/](http://static.springsource.org/spring/docs/3.0.x/spring-framework-reference/html/)
 
-    
+
   4. [http://martinfowler.com/articles/injection.html#ConstructorVersusSetterInjection](http://martinfowler.com/articles/injection.html#ConstructorVersusSetterInjection)
 
 

@@ -1,5 +1,5 @@
 ---
-date: '2012-11-08 20:10:23'
+date: 2012-11-08 20:10:23 +0100
 layout: post
 slug: functional-programming-principles-in-scala-course
 status: publish

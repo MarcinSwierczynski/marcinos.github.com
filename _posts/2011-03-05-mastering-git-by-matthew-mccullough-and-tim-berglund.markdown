@@ -1,5 +1,5 @@
 ---
-date: '2011-03-05 11:00:58'
+date: 2011-03-05 11:00:58 +0100
 layout: post
 slug: mastering-git-by-matthew-mccullough-and-tim-berglund
 status: publish

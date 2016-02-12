@@ -1,5 +1,5 @@
 ---
-date: '2010-07-31 17:09:22'
+date: 2010-07-31 17:09:22 +0100
 layout: post
 slug: code-coverage-analysis-in-django
 status: publish
@@ -35,32 +35,32 @@ The main part of this command is a Command class.
 
 
 
-    
-{% highlight python %}
+
+```python
 #imports
 
 class Command(test.Command):
     args = '[app_name ...]'
     help = 'Generates code coverage report'
-    
+
     option_list = test.Command.option_list + (
             make_option('--format', '-f', dest='format', default='txt', help='Change report output format (html or txt, default: txt)'),
-            make_option('--directory', '-d', dest='directory', default='.', 
+            make_option('--directory', '-d', dest='directory', default='.',
                         help='Change html report output directory. Default: current directory'),
         )
-    
+
     def __init__(self):
         self.cov = coverage.coverage()
         self.coverage_modules = []
 
         self.cov.use_cache(0)
-        
+
         try:
             from south.management.commands import patch_for_test_db_setup
             patch_for_test_db_setup()
         except ImportError:
             pass
-    
+
     def handle(self, *test_labels, **options):
         self.__run_tests_with_coverage_analyse(test_labels, options)
 
@@ -68,21 +68,21 @@ class Command(test.Command):
             self.__add_selected_applications_to_report(test_labels)
         else:
             self.__add_all_aplications_to_report()
-    
+
         if self.coverage_modules:
             self.cov.report(self.coverage_modules, show_missing=1)
             if options['format'] == 'html':
                 dest_path = os.path.join(options['directory'], 'coverage_report')
                 self.__generate_html_report(dest_path)
-            
-    
+
+
         self.cov.erase()
-    
+
     def __run_tests_with_coverage_analyse(self, test_labels, options):
         self.cov.start()
         super(Command, self).handle(*test_labels, **options)
         self.cov.stop()
-            
+
     def __add_selected_applications_to_report(self, test_labels):
         for label in test_labels:
             # Don't report coverage if you're only running a single
@@ -90,11 +90,11 @@ class Command(test.Command):
             if '.' not in label:
                 app = get_app(label)
                 self.coverage_modules.extend(self.__get_coverage_modules(app))
-                
+
     def __add_all_aplications_to_report(self):
         for app in get_apps():
             self.coverage_modules.extend(self.__get_coverage_modules(app))
-                    
+
     def __generate_html_report(self, dest_dir):
         print "Generating HTML report in %s..." % dest_dir
         self.__delete_directory_content(dest_dir)
@@ -107,24 +107,24 @@ class Command(test.Command):
         """
         app_path = app_module.__name__.split('.')[:-1]
         coverage_module = __import__('.'.join(app_path), {}, {}, app_path[-1])
-        
+
         #ignore external modules/applications
         module_path = coverage_module.__path__[0]
         if 'webapp/apps' not in module_path:
             return []
-    
+
         return [attr for name, attr in
             getmembers(coverage_module) if ismodule(attr) and name != 'tests']
 
 #some other stuffs
-{% endhighlight %}
+```
 
 
 As we can see in lines 7-11, it has two additional options:
-	
+
   * `-f` or `--format` which can take a `html` value to generate an HTML report
 
-	
+
   * `-d` or `--directory` which can take a path to destination directory where an HTML report will be saved to
 
 

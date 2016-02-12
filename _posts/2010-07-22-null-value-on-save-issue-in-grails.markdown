@@ -1,5 +1,5 @@
 ---
-date: '2010-07-22 22:07:11'
+date: 2010-07-22 22:07:11 +0100
 layout: post
 slug: null-value-on-save-issue-in-grails
 status: publish
@@ -27,18 +27,18 @@ Let’s define an Invoice class with a few fields: number, draw date and payment
 
 
 
-    
-{% highlight scala %}
-    class Invoice { 
+
+```groovy
+    class Invoice {
     	String number
     	Date drawDate
     	Date paymentDate
-    	static constraints = { 
+    	static constraints = {
     		number(blank: false)
     		drawDate(blank: false)
     	}
     }
-{% endhighlight %}
+```
 
 
 
@@ -49,10 +49,10 @@ It looks good, doesn’t it? You can generate controller and views for that clas
 
 
 
-    
-{% highlight scala %}
+
+```groovy
     def invoice = new Invoice(number: “1/2010”, drawDate: new Date()).save()
-{% endhighlight %}
+```
 
 
 
@@ -75,19 +75,19 @@ What can you do? You can set an explicit constraint for such a field: “nullabl
 
 
 
-    
-{% highlight scala %}
-    class Invoice { 
+
+```groovy
+    class Invoice {
     	String number
     	Date drawDate
     	Date paymentDate
-    	static constraints = { 
+    	static constraints = {
     		number(blank: false)
     		drawDate(blank: false)
     		paymentDate(nullable: true)
-    	} 
+    	}
     }
-{% endhighlight %}
+```
 
 
 
