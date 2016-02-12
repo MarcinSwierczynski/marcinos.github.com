@@ -27,6 +27,7 @@ You have to use SequenceStyleGenerator with its parameter – initial_value. You
 
 
 
+```groovy
     class FirstClass {
       static mapping = {
         id(generator: 'org.hibernate.id.enhanced.SequenceStyleGenerator',
@@ -42,6 +43,7 @@ You have to use SequenceStyleGenerator with its parameter – initial_value. You
       }
       ...
     }
+```
 
 
 
@@ -51,6 +53,7 @@ Unfortunately, in this case you’ll finish with the same sequence generator in 
 
 
 
+```groovy
     class FirstClass {
       static mapping = {
         id(generator: 'org.hibernate.id.enhanced.SequenceStyleGenerator',
@@ -66,6 +69,7 @@ Unfortunately, in this case you’ll finish with the same sequence generator in 
       }
       ...
     }
+```
 
 
 

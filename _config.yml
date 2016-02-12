@@ -1,6 +1,6 @@
 highlighter: rouge
 permalink: /:year/:month/:title
-markdown: rdiscount
+markdown: kramdown
 name: Marcin Świerczyński's Blog
 description: A personal blog about software engineering
 url: http://blog.swierczynski.net
