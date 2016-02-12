@@ -1,5 +1,5 @@
 ---
-date: '2010-07-22 21:00:25'
+date: 2010-07-22 21:00:25 +0100
 layout: post
 slug: initial-value-of-primary-key-in-grails
 status: publish
