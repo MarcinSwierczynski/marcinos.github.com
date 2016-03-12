@@ -71,6 +71,7 @@ The Gradle build file could like the following.
 
 ```
 
+
 The important parts are `gradle-docker` dependency, JAR `baseName` and of course the `buildDocker` task.
 
 Since we mentioned `Dockerfile` in the build script, it’s time to create it.
@@ -89,6 +90,7 @@ The file itself is pretty simple.
 	ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 
 ```
+
 
 So what is it all about?
 
@@ -115,6 +117,7 @@ First thing is to create an account there. Given we have our username and passwo
 	Login Succeeded
 ```
 
+
 ## Building and publishing Docker image
 
 To build the image, we need to run the following command:
@@ -122,6 +125,7 @@ To build the image, we need to run the following command:
 ```
 	$ gradle clean build buildDocker
 ```
+
 
 The result is:
 
@@ -153,11 +157,13 @@ The result is:
 	BUILD SUCCESSFUL
 ```
 
+
 Now, we can run our app with:
 
 ```
 	$ docker run -p 8080:8080 -t senco/smog24
 ```
+
 
 And verify it’s running:
 
@@ -167,6 +173,7 @@ And verify it’s running:
 	1328062c2da0        senco/smog24        "java -Djava.security"   About a minute ago   Up About a minute   0.0.0.0:8080->8080/tcp   jolly_thompson
 
 ```
+
 
 ## Wrapping up
 
