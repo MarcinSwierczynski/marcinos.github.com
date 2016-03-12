@@ -27,16 +27,16 @@ Nice introduction on how to set up Docker on different operating systems is avai
 To make sure Docker is installed properly, please run `docker` command from a terminal.
 
 ### Gradle
-The last tool that is required is Gradle installed. I use [sdkman][4] to install Gradle for me.
+The last tool that is required is Gradle. I use [sdkman][4] to install Gradle for me.
 
 ### Spring Boot application
-Besides, we of course need a Spring Boot application we want to dockerize. Of course we can create something very simple just for the purpose of this article.
+Besides, we of course need a Spring Boot application we want to dockerize. Of course we can also create something very simple just for the purpose of this article.
 
-Given we have all parts up and running, we can start with real work. First, we’re going to create Gradle build file.
+Given we have all parts up and running, we can start with the real work. First, we’re going to create Gradle build file.
 
 ## Creating Gradle build file
 
-The Gradle build file could like the following.
+The Gradle build file could look like the following.
 
 ```groovy
 	buildscript {
@@ -94,11 +94,11 @@ The file itself is pretty simple.
 
 So what is it all about?
 
-* `FROM java:8` defines an image our app image will be based on. In this case it’s an image contains Java 8.
+* `FROM java:8` defines an image our app image will be based on. In this case it’s an image that contains Java 8.
 * `VOLUME /tmp` defines a directory where our application can write into
-* `ADD smog24.jar app.jar` adds a JAR with our app to the final image and name it `app.jar`
+* `ADD smog24.jar app.jar` adds a JAR with our app to the final image and names it `app.jar`
 * `RUN bash -c 'touch /app.jar'` updates the jar modification time
-* `ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]`executes our jar, with `urandom` as Tomcat entropy source to [reduce Tomcat startup time][5]
+* `ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]` executes our jar, with `urandom` as Tomcat entropy source to [reduce Tomcat startup time][5]
 
 Now that we have everything ready, we can build our image.
 
