@@ -13,7 +13,7 @@ categories:
 
 ## What are we going to do?
 
-In this post we’re going to build a minimal viable Spring Boot application that is prepared to work under Docker. Then, we’ll publish our app image to [DockerHub][1].
+In this post we’re going to prepare a Spring Boot application to work under Docker. Then, we’ll publish our app image to [DockerHub][1].
 
 ### Prerequisites
 
@@ -39,24 +39,24 @@ Given we have all parts up and running, we can start with real work. First, we�
 The Gradle build file could like the following.
 
 ```groovy
-`	buildscript {
+	buildscript {
 		// ...
 	    dependencies {
 	        // ...
 	        classpath('se.transmode.gradle:gradle-docker:1.2')
 	    }
 	}
-	
+
 	group = 'senco'
-	
+
 	apply plugin: 'docker'
-	
+
 	jar {
 	    baseName = 'smog24'
 	}
-	
+
 	// ...
-	
+
 	task buildDocker(type: Docker, dependsOn: build) {
 	    push = true
 	    applicationName = jar.baseName
@@ -68,9 +68,9 @@ The Gradle build file could like the following.
 	        }
 	    }
 	}
-	
+
 ```
-`
+
 The important parts are `gradle-docker` dependency, JAR `baseName` and of course the `buildDocker` task.
 
 Since we mentioned `Dockerfile` in the build script, it’s time to create it.
@@ -80,15 +80,15 @@ Since we mentioned `Dockerfile` in the build script, it’s time to create it.
 The file itself is pretty simple.
 
 ```
-`	FROM java:8
+	FROM java:8
 	VOLUME /tmp
-	
+
 	ADD smog24.jar app.jar
 	RUN bash -c 'touch /app.jar'
-	
+
 	ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
-	
-	`
+
+```
 
 So what is it all about?
 
@@ -106,25 +106,27 @@ Since we want to make our image deployable to external hosts, like Amazon EC2, w
 
 First thing is to create an account there. Given we have our username and password, we can log in to the service:
 
+```
 	$ docker login
 	Username: senco
 	Password:
 	Email: marcin@something.com
 	WARNING: login credentials saved in /Users/marcin/.docker/config.json
 	Login Succeeded
+```
 
 ## Building and publishing Docker image
 
 To build the image, we need to run the following command:
 
 ```
-`	$ gradle clean build buildDocker
+	$ gradle clean build buildDocker
 ```
-`
+
 The result is:
 
 ```
-`	:buildDocker
+	:buildDocker
 	Sending build context to Docker daemon  18.5 MB
 	Step 1 : FROM java:8
 	 ---> 736600fd4ae5
@@ -143,29 +145,29 @@ The result is:
 	 ---> 3e31536bfd75
 	Removing intermediate container ef3dde2e8e05
 	Successfully built 3e31536bfd75
-	
+
 	The push refers to a repository [docker.io/senco/smog24]
-	
+
 	//...
-	
+
 	BUILD SUCCESSFUL
 ```
-`
+
 Now, we can run our app with:
 
 ```
-`	$ docker run -p 8080:8080 -t senco/smog24
+	$ docker run -p 8080:8080 -t senco/smog24
 ```
-`
+
 And verify it’s running:
 
 ```
-`	$ docker ps
+	$ docker ps
 	CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                    NAMES
 	1328062c2da0        senco/smog24        "java -Djava.security"   About a minute ago   Up About a minute   0.0.0.0:8080->8080/tcp   jolly_thompson
-	
+
 ```
-`
+
 ## Wrapping up
 
 In this article, we learned how to dockerize Spring Boot application.
