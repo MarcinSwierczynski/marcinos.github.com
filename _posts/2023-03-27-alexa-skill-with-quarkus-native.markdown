@@ -27,7 +27,7 @@ I implemented the above with standard approach - using Java Corretto and Alexa S
 
 It wasn't a surprise, but the Lambda calls duration were pretty long, especially because of cold start.
 
-![Alexa Skills Kit SDK for Java](/img/posts/alexa/aws-sdk.png)
+![Alexa Skills Kit SDK for Java](/img/posts/alexa/aws-sdk.png){: width="960" }
 
 As you can see, it took 8-9 s for a single call.
 
@@ -43,7 +43,7 @@ The important parts are:
 - `slf4j` should be excluded from `ask-sdk` artifact
 - Quarkus needs to be initialized e.g. in a static block in a subclass of `SkillStreamHandler`
 
-![Quarkus](/img/posts/alexa/quarkus.png)
+![Quarkus](/img/posts/alexa/quarkus.png){: width="960" }
 
 It worked well with the calls duration ~12 s for a cold start and ~4 s later on.
 
@@ -62,7 +62,7 @@ The important parts are:
 - `slf4j` should still be excluded from `ask-sdk` artifact
 - Quarkus does _not_ need to be initialized in a subclass of `SkillStreamHandler`
 
-![Quarkus Native](/img/posts/alexa/quarkus-native.png)
+![Quarkus Native](/img/posts/alexa/quarkus-native.png){: width="960" }
 
 The calls are around 800 ms, so an order of magnitude less then whit standard approach!
 
